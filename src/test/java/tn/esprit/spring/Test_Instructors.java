@@ -18,7 +18,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class InstructorServicesImplTest {
+public class Test_Instructors {
 
     @Mock
     private IInstructorRepository instructorRepository;

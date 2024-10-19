@@ -19,35 +19,35 @@ import static org.mockito.Mockito.*;
 class PisteServicesImplTest {
 
     @InjectMocks
-    private PisteServicesImpl pisteServices;  // On injecte le service à tester
+    private PisteServicesImpl pisteServices;  // Inject the service to test
 
     @Mock
-    private IPisteRepository pisteRepository;  // On mock le dépôt
+    private IPisteRepository pisteRepository;  // Mock the repository
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);  // Initialisation des mocks
+        MockitoAnnotations.openMocks(this);  // Initialize the mocks
     }
 
     @Test
     void retrieveAllPistes() {
-        // Arrange: On simule des données de test
+        // Arrange: Set up test data
         List<Piste> pistes = Arrays.asList(
                 new Piste(1L, "Piste 1", Color.BLUE, 500, 15, null),
                 new Piste(2L, "Piste 2", Color.RED, 800, 20, null)
         );
 
-        // On définit le comportement du mock
+        // Mock the repository behavior
         when(pisteRepository.findAll()).thenReturn(pistes);
 
-        // Act: On appelle la méthode du service
+        // Act: Call the service method
         List<Piste> result = pisteServices.retrieveAllPistes();
 
-        // Assert: Vérification que le service renvoie bien les pistes simulées
+        // Assert: Verify the results
         assertNotNull(result);
         assertEquals(2, result.size());
         assertEquals("Piste 1", result.get(0).getNamePiste());
-        verify(pisteRepository, times(1)).findAll();  // On vérifie que le dépôt a été appelé une seule fois
+        verify(pisteRepository, times(1)).findAll();  // Verify the repository was called once
     }
 
     @Test
@@ -75,7 +75,7 @@ class PisteServicesImplTest {
         pisteServices.removePiste(pisteId);
 
         // Assert
-        verify(pisteRepository, times(1)).deleteById(pisteId);  // Vérification que le dépôt a été appelé pour la suppression
+        verify(pisteRepository, times(1)).deleteById(pisteId);  // Verify the repository was called for deletion
     }
 
     @Test
@@ -101,7 +101,36 @@ class PisteServicesImplTest {
         when(pisteRepository.findById(pisteId)).thenReturn(Optional.empty());
 
         // Act & Assert
-        Exception exception = assertThrows(RuntimeException.class, () -> {
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+            pisteServices.retrievePiste(pisteId);
+        });
+
+        assertEquals("Piste not found", exception.getMessage());
+    }
+
+    @Test
+    void retrievePiste_withValidId_shouldReturnPiste() {
+        // Arrange
+        Long pisteId = 2L;
+        Piste piste = new Piste(pisteId, "Piste 2", Color.RED, 800, 20, null);
+        when(pisteRepository.findById(pisteId)).thenReturn(Optional.of(piste));
+
+        // Act
+        Piste result = pisteServices.retrievePiste(pisteId);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals("Piste 2", result.getNamePiste());
+    }
+
+    @Test
+    void retrievePiste_withInvalidId_shouldThrowException() {
+        // Arrange
+        Long pisteId = 3L;
+        when(pisteRepository.findById(pisteId)).thenReturn(Optional.empty());
+
+        // Act & Assert
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             pisteServices.retrievePiste(pisteId);
         });
 

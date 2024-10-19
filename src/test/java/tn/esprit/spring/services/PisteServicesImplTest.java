@@ -82,7 +82,7 @@ class PisteServicesImplTest {
     void retrievePiste() {
         // Arrange
         Long pisteId = 1L;
-        Piste piste = new Piste(1L, "Piste 1", Color.BLACK, 700, 25, null);
+        Piste piste = new Piste(1L, "Piste 1", Color.BLACK, 700, 24, null);
         when(pisteRepository.findById(pisteId)).thenReturn(Optional.of(piste));
 
         // Act

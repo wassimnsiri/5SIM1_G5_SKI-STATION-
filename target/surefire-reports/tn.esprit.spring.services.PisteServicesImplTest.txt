@@ -1,0 +1,12 @@
+-------------------------------------------------------------------------------
+Test set: tn.esprit.spring.services.PisteServicesImplTest
+-------------------------------------------------------------------------------
+Tests run: 7, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0.109 s <<< FAILURE! - in tn.esprit.spring.services.PisteServicesImplTest
+retrievePiste_withInvalidId_shouldThrowException  Time elapsed: 0.091 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Expected java.lang.RuntimeException to be thrown, but nothing was thrown.
+	at tn.esprit.spring.services.PisteServicesImplTest.retrievePiste_withInvalidId_shouldThrowException(PisteServicesImplTest.java:133)
+
+retrievePiste_notFound  Time elapsed: 0.002 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Expected java.lang.RuntimeException to be thrown, but nothing was thrown.
+	at tn.esprit.spring.services.PisteServicesImplTest.retrievePiste_notFound(PisteServicesImplTest.java:104)
+

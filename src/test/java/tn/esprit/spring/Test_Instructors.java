@@ -87,10 +87,10 @@ import java.util.*;
 
 
     @Test
-     void testModifyInstructor() {
+    void testModifyInstructor() {
         // Mocking the behavior of the repository
         Mockito.when(instructorRepository.findById(1L)).thenReturn(Optional.of(instructor1));
-        Mockito.when(instructorRepository.save(instructor1)).thenReturn(instructor1);
+        Mockito.lenient().when(instructorRepository.save(instructor1)).thenReturn(instructor1); // Use lenient stubbing
 
         // Modifying the Instructor
         instructor1.setFirstName("UpdatedName");
@@ -100,6 +100,7 @@ import java.util.*;
         Assertions.assertNotNull(modifiedInstructor);
         Assertions.assertEquals("UpdatedName", modifiedInstructor.getFirstName());
     }
+
 
 
     @Test

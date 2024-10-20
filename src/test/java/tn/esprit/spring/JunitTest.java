@@ -25,7 +25,7 @@ class JunitTest {
 
     @Test
     @Order(0)
-    public void testAddinstructors() {
+     void testAddinstructors() {
         Instructor instructor = new Instructor();
         instructor.setFirstName("Test");
         Instructor addInstructor = iInstructorServices.addInstructor(instructor);
@@ -35,7 +35,7 @@ class JunitTest {
 
     @Test
     @Order(1)
-    public void testUpdateinstructors() {
+     void testUpdateinstructors() {
         Instructor instructor = new Instructor();
         instructor.setFirstName("test2");
         Instructor addInstructor = iInstructorServices.addInstructor(instructor);
@@ -47,7 +47,7 @@ class JunitTest {
 
     @Test
     @Order(2)
-    public void testRetrieveAllinstructors() {
+     void testRetrieveAllinstructors() {
         List<Instructor> instructors = iInstructorServices.retrieveAllInstructors();
         assertTrue(instructors.size() > 0);
         log.info("instructors count: {}", instructors.size());

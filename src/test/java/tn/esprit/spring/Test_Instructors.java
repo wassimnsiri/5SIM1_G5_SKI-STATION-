@@ -56,7 +56,7 @@ public class Test_Instructors {
         Assertions.assertEquals(2, instructors.size());
     }
 
-    /* @Test
+    @Test
     public void testRetrieveInstructor() {
         // Mocking the behavior of the repository
         Mockito.when(instructorRepository.findById(1L)).thenReturn(Optional.of(instructor1));
@@ -81,7 +81,7 @@ public class Test_Instructors {
         Assertions.assertNotNull(addedInstructor);
         Assertions.assertEquals("John", addedInstructor.getFirstName());
     }
-
+ /*
     @Test
     public void testRemoveInstructor() {
         // Mocking the behavior of the repository

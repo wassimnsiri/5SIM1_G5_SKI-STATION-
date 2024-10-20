@@ -16,4 +16,5 @@ public interface ICourseServices {
     Course retrieveCourse(Long numCourse);
 
 
+    List<Course> findCoursesByDuration(int duration);
 }

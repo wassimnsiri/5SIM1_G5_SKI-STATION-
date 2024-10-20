@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 public class CourseRestController {
     
     private final ICourseServices courseServices;
-    private static final Logger logger = Logger.getLogger(CourseRestController.class.getName());
+    private  final Logger logger = Logger.getLogger(CourseRestController.class.getName());
 
     @Operation(description = "Add Course")
     @PostMapping("/add")

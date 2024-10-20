@@ -24,22 +24,18 @@ public class CourseServiceTest {
     public void testAddCourse() {
         // Créez une instance de Registration
         Registration registration = new Registration();
-
         // Créez un Set de Registration et ajoutez-y votre instance
         Set<Registration> registrations = new HashSet<>();
         registrations.add(registration);
-
         // Créez un objet Course avec le Set de Registration
-        Course course = new Course(1l, 1, INDIVIDUAL, SKI, 20.5f, 2, registrations);
-
+        Course course = new Course(2L, 1, INDIVIDUAL, SKI, 20.5f, 2,"skidiving",
+                "Don't worry be happy",20, registrations);
         // Ajoutez le cours en appelant la méthode du service
         Course addedCourse = courseServices.addCourse(course);
-
         // Assurez-vous que le cours ajouté n'est pas nul
         assertNotNull(addedCourse);
-
-        // Vérifiez que le cours ajouté a le bon numéro de cours (par exemple)
-        assertEquals(1l, addedCourse.getNumCourse().longValue());
+        // Vérifiez que le cours ajouté a le bon name de cours
+        assertEquals("skidiving", addedCourse.getName());
     }
 }
 

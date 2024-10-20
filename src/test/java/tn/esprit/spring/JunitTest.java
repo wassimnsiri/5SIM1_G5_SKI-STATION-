@@ -12,6 +12,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import tn.esprit.spring.entities.Instructor;
 import tn.esprit.spring.services.IInstructorServices;
 
+import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,15 +22,17 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @Slf4j
 class JunitTest {
+    Instructor instructor1 = new Instructor(1L, "John", "Doe", LocalDate.of(2020, 1, 1), new HashSet<>());
+
     @Autowired
     private IInstructorServices iInstructorServices;
 
     @Test
     @Order(0)
      void testAddinstructors() {
-        Instructor instructor = new Instructor();
-        instructor.setFirstName("Test");
-        Instructor addInstructor = iInstructorServices.addInstructor(instructor);
+        Instructor instructor1 = new Instructor();
+        instructor1.setFirstName("John");
+        Instructor addInstructor = iInstructorServices.addInstructor(instructor1);
         assertNotNull(addInstructor);
         log.info("Added insturctor: {}", addInstructor);
     }

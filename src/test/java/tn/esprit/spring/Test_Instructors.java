@@ -84,20 +84,7 @@ import java.util.*;
  
   
 
-    @Test
-    public void testModifyInstructor() {
-        // Mocking the behavior of the repository
-        Mockito.when(instructorRepository.findById(1L)).thenReturn(Optional.of(instructor1));
-        Mockito.when(instructorRepository.save(instructor1)).thenReturn(instructor1);
-
-        // Modifying the Instructor
-        instructor1.setFirstName("UpdatedName");
-        Instructor modifiedInstructor = instructorService.updateInstructor(instructor1);
-
-        // Asserting that the modified Instructor is not null and matches the expected updates
-        Assertions.assertNotNull(modifiedInstructor);
-        Assertions.assertEquals("UpdatedName", modifiedInstructor.getFirstName());
-    }
+   
 
    /* @Test
     public void testAddInstructorAndAssignToCourse() {

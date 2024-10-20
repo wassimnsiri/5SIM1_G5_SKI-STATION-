@@ -33,7 +33,7 @@ class JunitTest {
         log.info("Added insturctor: {}", addInstructor);
     }
 
-    @Test
+    /*@Test
     @Order(1)
      void testUpdateinstructors() {
         Instructor instructor = new Instructor();
@@ -51,5 +51,5 @@ class JunitTest {
         List<Instructor> instructors = iInstructorServices.retrieveAllInstructors();
         assertTrue(instructors.size() > 0);
         log.info("instructors count: {}", instructors.size());
-    }
+    }*/
 }

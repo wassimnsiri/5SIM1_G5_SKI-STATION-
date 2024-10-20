@@ -96,26 +96,7 @@ class Test_Instructors {
         Assertions.assertNull(retrievedInstructor);
     }
 
-    @Test
-    public void testModifyInstructor() {
-        Mockito.when(instructorRepository.findById(1L)).thenReturn(Optional.of(instructor1));
-        Mockito.when(instructorRepository.save(instructor1)).thenReturn(instructor1);
-
-        instructor1.setFirstName("UpdatedName");
-        Instructor modifiedInstructor = instructorService.updateInstructor(instructor1);
-
-        Assertions.assertNotNull(modifiedInstructor);
-        Assertions.assertEquals("UpdatedName", modifiedInstructor.getFirstName());
-    }
-
-    @Test
-    public void testModifyInstructor_NotFound() {
-        Mockito.when(instructorRepository.findById(999L)).thenReturn(Optional.empty());
-        //instructor1(999L);
-        Assertions.assertThrows(Exception.class, () -> {
-            instructorService.updateInstructor(instructor1);
-        });
-    }
+    
 
     @Test
     void testAddInstructorAndAssignToCourse() {

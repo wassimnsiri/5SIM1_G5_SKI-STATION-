@@ -12,7 +12,12 @@ pipeline {
                     // Start MySQL container without a root password
                     def mysqlContainer = docker.image('mysql:5.7')
                     mysqlContainer.run('-e MYSQL_ALLOW_EMPTY_PASSWORD=yes -e MYSQL_DATABASE=stationSki -p 3306:3306')
-                    sleep(15) // Allow time for MySQL to start
+
+                    // Wait for MySQL to be ready
+                    retry(5) {
+                        sleep(5) // wait 5 seconds
+                        sh 'mysqladmin ping -h localhost --silent'
+                    }
                 }
                 // Run tests
                 sh 'mvn test'

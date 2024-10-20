@@ -81,7 +81,7 @@ public class Test_Instructors {
         Assertions.assertNotNull(addedInstructor);
         Assertions.assertEquals("John", addedInstructor.getFirstName());
     }
- /*
+ 
     @Test
     public void testRemoveInstructor() {
         // Mocking the behavior of the repository
@@ -107,7 +107,7 @@ public class Test_Instructors {
         // Asserting that the modified Instructor is not null and matches the expected updates
         Assertions.assertNotNull(modifiedInstructor);
         Assertions.assertEquals("UpdatedName", modifiedInstructor.getFirstName());
-    }*/
+    }
 
    /* @Test
     public void testAddInstructorAndAssignToCourse() {

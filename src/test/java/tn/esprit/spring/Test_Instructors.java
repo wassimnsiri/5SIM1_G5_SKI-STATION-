@@ -11,7 +11,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import tn.esprit.spring.entities.Course;
 import tn.esprit.spring.entities.Instructor;
+import tn.esprit.spring.entities.Support;
+import tn.esprit.spring.entities.TypeCourse;
 import tn.esprit.spring.repositories.ICourseRepository;
 import tn.esprit.spring.repositories.IInstructorRepository;
 import tn.esprit.spring.services.InstructorServicesImpl;
@@ -81,15 +84,30 @@ import java.util.*;
         Assertions.assertNotNull(addedInstructor);
         Assertions.assertEquals("John", addedInstructor.getFirstName());
     }
- 
-  
 
-   
 
-   /* @Test
+    @Test
+     void testModifyInstructor() {
+        // Mocking the behavior of the repository
+        Mockito.when(instructorRepository.findById(1L)).thenReturn(Optional.of(instructor1));
+        Mockito.when(instructorRepository.save(instructor1)).thenReturn(instructor1);
+
+        // Modifying the Instructor
+        instructor1.setFirstName("UpdatedName");
+        Instructor modifiedInstructor = instructorService.updateInstructor(instructor1);
+
+        // Asserting that the modified Instructor is not null and matches the expected updates
+        Assertions.assertNotNull(modifiedInstructor);
+        Assertions.assertEquals("UpdatedName", modifiedInstructor.getFirstName());
+    }
+
+
+    @Test
     public void testAddInstructorAndAssignToCourse() {
         // Mocking the behavior of the course repository
-        Course course = new Course(1L, "Math 101", 3);
+        // Adjusting the course creation to match the expected constructor
+        Course course = new Course(1L, 3, TypeCourse.COLLECTIVE_ADULT, Support.SKI, 100.0f, 10, new HashSet<>());
+
         Mockito.when(courseRepository.findById(1L)).thenReturn(Optional.of(course));
 
         // Mocking the behavior of the instructor repository
@@ -102,5 +120,6 @@ import java.util.*;
         Assertions.assertNotNull(assignedInstructor);
         Assertions.assertEquals(1, assignedInstructor.getCourses().size());
         Assertions.assertTrue(assignedInstructor.getCourses().contains(course));
-    }*/
+    }
+
 }

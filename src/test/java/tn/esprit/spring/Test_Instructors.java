@@ -103,7 +103,7 @@ import java.util.*;
 
 
     @Test
-    public void testAddInstructorAndAssignToCourse() {
+     void testAddInstructorAndAssignToCourse() {
         // Mocking the behavior of the course repository
         // Adjusting the course creation to match the expected constructor
         Course course = new Course(1L, 3, TypeCourse.COLLECTIVE_ADULT, Support.SKI, 100.0f, 10, new HashSet<>());

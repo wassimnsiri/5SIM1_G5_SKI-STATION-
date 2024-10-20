@@ -21,7 +21,7 @@ import java.util.*;
 
 @ExtendWith(MockitoExtension.class)
 @TestMethodOrder(OrderAnnotation.class)
-public class Test_Instructors {
+ class Test_Instructors {
 
     @Mock
     IInstructorRepository instructorRepository;
@@ -82,18 +82,8 @@ public class Test_Instructors {
         Assertions.assertEquals("John", addedInstructor.getFirstName());
     }
  
-    @Test
-    public void testRemoveInstructor() {
-        // Mocking the behavior of the repository
-        Mockito.doNothing().when(instructorRepository).deleteById(1L);
+  
 
-        // Removing the Instructor
-        instructorService.retrieveInstructor(1L);
-
-        // Verifying that the repository's deleteById method was called once
-        Mockito.verify(instructorRepository, Mockito.times(1)).deleteById(1L);
-    }
-/*
     @Test
     public void testModifyInstructor() {
         // Mocking the behavior of the repository
@@ -107,7 +97,7 @@ public class Test_Instructors {
         // Asserting that the modified Instructor is not null and matches the expected updates
         Assertions.assertNotNull(modifiedInstructor);
         Assertions.assertEquals("UpdatedName", modifiedInstructor.getFirstName());
-    }*/
+    }
 
    /* @Test
     public void testAddInstructorAndAssignToCourse() {

@@ -15,8 +15,8 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
 
-  app-tpfoyer: wassimns/devops:latest
-    image: 
+  app-tpfoyer:
+    image: wassimns/devops:latest
     container_name: backend
     restart: on-failure
     ports:

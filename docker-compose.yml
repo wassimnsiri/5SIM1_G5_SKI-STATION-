@@ -1,51 +1,33 @@
-version: '3.8'
+version: "3"
 
 services:
-  mysql:
-    image: mysql:latest
-    container_name: mysql-container
+  mysqldb:
+    image: mysql:5.7
+    container_name: mysql
+    restart: unless-stopped
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=root
     ports:
       - "3306:3306"
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
     networks:
-      - app-network
+      - myNetwork
+    volumes:
+      - mysql-data:/var/lib/mysql
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin
-    environment:
-      - PMA_HOST=mysql
-      - PMA_PORT=3306
+  app-tpfoyer: wassimns/devops:latest
+    image: 
+    container_name: backend
+    restart: on-failure
     ports:
-      - "8083:80"
+      - "8091:8091"
     depends_on:
-      - mysql
+      - mysqldb
     networks:
-      - app-network
-
-  spring-app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: spring-app
-    ports:
-      - "8082:8082"
-    depends_on:
-      mysql:
-        condition: service_healthy
-      phpmyadmin:
-        condition: service_started
-    networks:
-      - app-network
+      - myNetwork
 
 networks:
-  app-network:
-    driver: bridge
+  myNetwork:
+
+volumes:
+  mysql-data:

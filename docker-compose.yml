@@ -5,8 +5,8 @@ services:
     image: mysql:5.7
     container_name: mysql
     environment:
-      - MYSQL_DATABASE=devops
-      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: root
     ports:
       - "3306:3306"
     volumes:

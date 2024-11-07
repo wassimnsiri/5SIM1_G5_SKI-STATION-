@@ -1,33 +1,36 @@
-version: "3"
+version: '3.8'
 
 services:
-  mysqldb:
-    image: mysql:5.7
-    container_name: mysql
-    restart: unless-stopped
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-db
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=root
+      - MYSQL_DATABASE=devops
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes  # Consider setting a password for production
     ports:
       - "3306:3306"
-    networks:
-      - myNetwork
     volumes:
-      - mysql-data:/var/lib/mysql
+      - mysql_data:/var/lib/mysql
+    networks:
+      - springboot-mysql-network
 
-  app-devops:
+  springboot-app:
     image: wassimns/devops:latest
-    container_name: backend
-    restart: on-failure
+    container_name: springboot-app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/stationSki?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ""  # Ensure consistency with MySQL (empty password)
     ports:
       - "8082:8082"
     depends_on:
-      - mysqldb
+      - mysql
     networks:
-      - myNetwork
-
-networks:
-  myNetwork:
+      - springboot-mysql-network
 
 volumes:
-  mysql-data:
+  mysql_data:
+
+networks:
+  springboot-mysql-network:
+    driver: bridge

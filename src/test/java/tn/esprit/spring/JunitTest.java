@@ -26,7 +26,7 @@ import static org.mockito.Mockito.when;
 @Slf4j
 class JunitTest {
 
-  /*  @Mock
+   @Mock
     private IInstructorServices iInstructorServices;
 
     @InjectMocks
@@ -66,5 +66,5 @@ class JunitTest {
         List<Instructor> retrievedInstructors = iInstructorServices.retrieveAllInstructors();
         assertTrue(retrievedInstructors.size() > 0);
         log.info("Instructors count: {}", retrievedInstructors.size());
-    */
+    
 }

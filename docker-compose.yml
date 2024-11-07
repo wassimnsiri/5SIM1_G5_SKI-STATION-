@@ -3,7 +3,7 @@ version: '3.8'
 services:
   mysql:
     image: mysql:8.0
-    container_name: mysql-db
+    container_name: mysql
     environment:
       - MYSQL_DATABASE=devops
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes  # Consider setting a password for production

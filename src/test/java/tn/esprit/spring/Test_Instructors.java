@@ -25,7 +25,7 @@ import java.util.*;
 @ExtendWith(MockitoExtension.class)
 @TestMethodOrder(OrderAnnotation.class)
 class Test_Instructors {
-/*
+
     @Mock
     IInstructorRepository instructorRepository;
 
@@ -106,6 +106,6 @@ class Test_Instructors {
         Assertions.assertNotNull(assignedInstructor);
         Assertions.assertEquals(1, assignedInstructor.getCourses().size());
         Assertions.assertTrue(assignedInstructor.getCourses().contains(course));
-    }*/
+    }
 
 }

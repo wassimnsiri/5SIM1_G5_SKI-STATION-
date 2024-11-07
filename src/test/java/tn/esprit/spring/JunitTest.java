@@ -68,3 +68,4 @@ class JunitTest {
         log.info("Instructors count: {}", retrievedInstructors.size());
     
 }
+}

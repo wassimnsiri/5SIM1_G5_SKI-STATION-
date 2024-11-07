@@ -7,7 +7,7 @@ services:
     restart: unless-stopped
     environment:
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=dev
+      - MYSQL_DATABASE=stationSki
     ports:
       - "3306:3306"
     networks:
@@ -17,7 +17,7 @@ services:
 
   springboot-app:
     image: wassimns/devops:latest
-     container_name: backend
+    container_name: backend
     restart: on-failure
     ports:
       - "8091:8091"

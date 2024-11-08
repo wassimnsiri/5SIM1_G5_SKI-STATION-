@@ -1,5 +1,12 @@
 pipeline {
     agent any
+    environment {
+        MYSQL_HOST = '127.0.0.1'
+        MYSQL_PORT = '3306'
+        MYSQL_DB = 'stationSki'
+        MYSQL_USER = 'root'
+        MYSQL_PASSWORD = ''  // Use your MySQL password if needed
+    }
     stages {
         stage('Build') {
             steps {
@@ -9,24 +16,15 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    // Start MySQL container without a root password
-                    def mysqlContainer = docker.image('mysql:5.7')
-                    mysqlContainer.run('-e MYSQL_ALLOW_EMPTY_PASSWORD=yes -e MYSQL_DATABASE=stationSki -p 3306:3306')
-
-                    // Wait for MySQL to be ready
+                    // Check MySQL connection
                     retry(5) {
-                        sleep(5) // wait 5 seconds
-                        sh 'mysqladmin ping -h localhost --silent'
+                        sleep(5) // Wait a bit for MySQL if needed
+                        sh """
+                        mysql -h${MYSQL_HOST} -P${MYSQL_PORT} -u${MYSQL_USER} -p${MYSQL_PASSWORD} -e "USE ${MYSQL_DB};"
+                        """
                     }
                 }
-                // Run tests
                 sh 'mvn test'
-            }
-            post {
-                always {
-                    // Stop the MySQL container
-                    sh 'docker stop $(docker ps -q --filter ancestor=mysql:5.7)'
-                }
             }
         }
     }

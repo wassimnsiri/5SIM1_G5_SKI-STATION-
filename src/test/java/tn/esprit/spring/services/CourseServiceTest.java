@@ -28,14 +28,14 @@ public class CourseServiceTest {
         Set<Registration> registrations = new HashSet<>();
         registrations.add(registration);
         // Créez un objet Course avec le Set de Registration
-        Course course = new Course(2L, 1, INDIVIDUAL, SKI, 20.5f, 2,"skidiving",
-                "Don't worry be happy",20, registrations);
+        Course course = new Course(5L, 1, INDIVIDUAL, SKI, 28.5f, 2,"flysky",
+                "Don't worry",60, registrations);
         // Ajoutez le cours en appelant la méthode du service
         Course addedCourse = courseServices.addCourse(course);
         // Assurez-vous que le cours ajouté n'est pas nul
         assertNotNull(addedCourse);
         // Vérifiez que le cours ajouté a le bon name de cours
-        assertEquals("skidiving", addedCourse.getName());
+        assertEquals("flysky", addedCourse.getName());
     }
 }
 

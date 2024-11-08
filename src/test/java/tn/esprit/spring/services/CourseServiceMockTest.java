@@ -35,8 +35,8 @@ public class CourseServiceMockTest {
         registrations.add(registration);
 
         List<Course> courses = Arrays.asList(
-                new Course(2L, 1, INDIVIDUAL, SKI, 20.5f, 2, "skidiving", "Don't worry be happy", 60, registrations),
-                new Course(3L, 1, COLLECTIVE_ADULT, SKI, 20.5f, 2, "drive", "Don't worry be happy", 60, registrations)
+                new Course(4L, 1, INDIVIDUAL, SKI, 20.5f, 2, "skidiving", "Don't worry be happy", 60, registrations),
+                new Course(5L, 1, COLLECTIVE_ADULT, SKI, 20.5f, 2, "drive", "Don't worry be happy", 60, registrations)
         );
         // Simuler le comportement du repository
         when(courseRepository.findByDuration(60)).thenReturn(courses);

@@ -23,6 +23,15 @@ services:
 
 
 
+    # Prometheus service
+    prometheus:
+      image: prom/prometheus
+      restart: unless-stopped
+      ports:
+        - 9090:9090
+      volumes:
+        - ./prometheus.yml:/etc/prometheus/prometheus.yml
+
         
     stdin_open: true
     tty: true
@@ -37,7 +46,9 @@ services:
         "spring.jpa.properties.hibernate.dialect": "org.hibernate.dialect.MySQL5InnoDBDialect",
         "spring.jpa.hibernate.ddl-auto": "update"
       }'
-  
+
+
+
 
 volumes:
   db :

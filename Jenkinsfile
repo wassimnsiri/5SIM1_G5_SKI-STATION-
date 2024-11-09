@@ -2,11 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/wassimnsiri/5SIM1_G5_SKI-STATION-.git'
-            }
-        }
+
         stage('Build') {
             steps {
                 sh 'mvn clean install'

@@ -73,18 +73,6 @@ class PisteServiceImplTest {
         verify(pisteRepository, times(1)).deleteById(pisteId);
     }
 
-//    @Test
-//    void updatePisteTest() {
-//        when(pisteRepository.save(piste)).thenReturn(piste);
-//
-//        piste.setNamePiste("Updated Valley");
-//
-//        Piste updatedPiste = pisteService.updatePiste(piste);
-//
-//        assertThat(updatedPiste).isNotNull();
-//        assertThat(updatedPiste.getNamePiste()).isEqualTo("Updated Valley");
-//        verify(pisteRepository).save(piste);
-//    }
 
     @Test
     void retrievePisteTest() {
@@ -96,4 +84,25 @@ class PisteServiceImplTest {
         assertThat(retrievedPiste).isNotNull();
         verify(pisteRepository).findById(pisteId);
     }
+
+
+
+
+
+    @Test
+    void calculateAverageSlopeTest() {
+        List<Piste> pistes = List.of(
+                new Piste(1L, "Green Valley", Color.GREEN, 1000, 15, null),
+                new Piste(2L, "Blue Ridge", Color.BLUE, 1500, 20, null),
+                new Piste(3L, "Black Diamond", Color.BLACK, 2000, 30, null)
+        );
+
+        when(pisteRepository.findAll()).thenReturn(pistes);
+
+        double averageSlope = pisteService.calculateAverageSlope();
+
+        assertThat(averageSlope).isEqualTo((15 + 20 + 30) / 3.0);
+        verify(pisteRepository).findAll();
+    }
+
 }

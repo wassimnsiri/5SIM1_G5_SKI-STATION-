@@ -31,5 +31,20 @@ public class PisteServicesImpl implements  IPisteServices{
     public Piste retrievePiste(Long numPiste) {
 <span class="fc" id="L32">        return pisteRepository.findById(numPiste).orElse(null);</span>
     }
+
+
+    public double calculateAverageSlope() {
+<span class="fc" id="L37">        List&lt;Piste&gt; pistes = pisteRepository.findAll();</span>
+
+<span class="pc bpc" id="L39" title="1 of 2 branches missed.">        if (pistes.isEmpty()) {</span>
+<span class="nc" id="L40">            return 0; // Handle case with no pistes to avoid division by zero</span>
+        }
+
+<span class="fc" id="L43">        double totalSlope = pistes.stream()</span>
+<span class="fc" id="L44">                .mapToInt(Piste::getSlope)</span>
+<span class="fc" id="L45">                .sum();</span>
+
+<span class="fc" id="L47">        return totalSlope / pistes.size();</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

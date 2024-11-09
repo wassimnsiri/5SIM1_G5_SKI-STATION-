@@ -15,7 +15,7 @@ import lombok.experimental.FieldDefaults;
 
 @Getter
 <span class="pc" id="L17">@Setter</span>
-<span class="nc" id="L18">@AllArgsConstructor</span>
+<span class="fc" id="L18">@AllArgsConstructor</span>
 <span class="fc" id="L19">@NoArgsConstructor</span>
 @FieldDefaults(level=AccessLevel.PRIVATE)
 @Entity
@@ -28,7 +28,7 @@ public class Piste implements Serializable {
 	@Enumerated(EnumType.STRING)
 <span class="nc" id="L29">	Color color;</span>
 <span class="nc" id="L30">	int length;</span>
-<span class="nc" id="L31">	int slope;</span>
+<span class="fc" id="L31">	int slope;</span>
 
 	@ManyToMany(mappedBy= &quot;pistes&quot;)
 <span class="nc" id="L34">	Set&lt;Skier&gt; skiers;</span>

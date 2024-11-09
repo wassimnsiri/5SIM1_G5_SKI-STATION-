@@ -10,6 +10,7 @@ pipeline {
         }
         stage('Test') {
             steps {
+                dockerCompose.up '-d'
                 sh 'mvn test'
             }
         }
@@ -22,6 +23,9 @@ pipeline {
     }
 
     post {
+        always {
+            dockerCompose.down()
+        }
         success {
             echo 'Build and Deploy succeeded!'
         }

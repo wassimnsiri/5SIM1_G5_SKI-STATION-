@@ -23,8 +23,8 @@ pipeline {
         }
         stage('Docker Build and Push') {
             steps {
-                sh 'docker build -t yourdockerhubname/nomprenom_groupe_nomProjet .'
-                sh 'docker push yourdockerhubname/nomprenom_groupe_nomProjet'
+                sh 'docker build -t rihemrd/DrissiRihem_G5_GESTION-STATION-SKI .'
+                sh 'docker push rihemrd/DrissiRihem_G5_GESTION-STATION-SKI'
             }
         }
     }

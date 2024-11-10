@@ -1,7 +1,7 @@
 version: '3'
 services:
   spring-app:
-    image: rihemrd/DrissiRihem_G5_SKI-STATION
+    image: rihemrd/DrissiRihem_G5_GESTION-STATION-SKI
     ports:
       - "8080:8080"
     environment:
@@ -10,8 +10,14 @@ services:
       - SPRING_DATASOURCE_PASSWORD=admin
   mysql:
     image: mysql:5.7
+    container_name: mysql
+    restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD:
+      MYSQL_ROOT_PASSWORD: admin
       MYSQL_DATABASE: stationSki
     ports:
       - "3306:3306"
+    networks:
+      - myNetwork
+    volumes:
+      - mysql-data:/var/lib/mysql

@@ -1,13 +1,22 @@
-version: '3'
+version: '3.8'
 services:
-  spring-app:
-    image: gestion-station-ski
+  app:
+    build: .
     ports:
-      - "3306:3306"
+      - "8080:8080"
     depends_on:
-      - mysql
-  mysql:
-    image: mysql:5.7
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/stationSki
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD:
+
+  db:
+    image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD:
       MYSQL_DATABASE: stationSki
+      MYSQL_USER: root
+      MYSQL_PASSWORD:
+    ports:
+      - "3306:3306"

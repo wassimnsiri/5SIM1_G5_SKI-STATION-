@@ -12,8 +12,6 @@ import tn.esprit.spring.repositories.IRegistrationRepository;
 import tn.esprit.spring.repositories.ISkierRepository;
 
 import java.time.LocalDate;
-import java.time.Period;
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -97,6 +95,4 @@ class RegistrationServicesImplTest {
         verify(courseRepository, times(1)).findById(1L);
         verify(registrationRepository, times(1)).save(registration);
     }
-
-    
 }

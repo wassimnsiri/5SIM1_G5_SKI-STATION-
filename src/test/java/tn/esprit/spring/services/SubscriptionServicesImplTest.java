@@ -18,6 +18,10 @@ import static org.mockito.Mockito.*;
 
 class SubscriptionServicesImplTest {
 
+    // Static variables for subscription durations
+    private static final int MONTHLY_DURATION = 1;
+    private static final int SEMESTRIAL_DURATION = 6;
+    private static final int ANNUAL_DURATION = 12;
 
     @Mock
     private ISubscriptionRepository subscriptionRepository;
@@ -34,7 +38,7 @@ class SubscriptionServicesImplTest {
     }
 
     @Test
-    void addSubscription() {
+    void addMonthlySubscription() {
         Subscription subscription = new Subscription();
         subscription.setTypeSub(TypeSubscription.MONTHLY);
         subscription.setStartDate(LocalDate.now());
@@ -42,7 +46,7 @@ class SubscriptionServicesImplTest {
         when(subscriptionRepository.save(any(Subscription.class))).thenReturn(subscription);
 
         Subscription savedSubscription = subscriptionService.addSubscription(subscription);
-        assertEquals(subscription.getStartDate().plusMonths(1), savedSubscription.getEndDate());
+        assertEquals(subscription.getStartDate().plusMonths(MONTHLY_DURATION), savedSubscription.getEndDate());
 
         verify(subscriptionRepository, times(1)).save(subscription);
     }

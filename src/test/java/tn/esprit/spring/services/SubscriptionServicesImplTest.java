@@ -1,5 +1,6 @@
 package tn.esprit.spring.services;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,20 +20,17 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-@SpringBootTest
+@Slf4j
+
 class SubscriptionServicesImplTest {
 
-    // Static variables for subscription durations
-    private static final int MONTHLY_DURATION = 1;
 
     @Mock
-    private ISubscriptionRepository subscriptionRepository;
+    private ISubscriptionServices iSubscriptionServices;
 
     @InjectMocks
-    private SubscriptionServicesImpl subscriptionService;
+    private Subscription subscription = new Subscription( 1L, LocalDate.now(), LocalDate.now().plusMonths(1), 100.0f, TypeSubscription.MONTHLY);
 
-    // Static monthly subscription for testing
-    private final Subscription monthlySubscription = new Subscription(1L, LocalDate.now(), LocalDate.now().plusMonths(MONTHLY_DURATION), 100.0f, TypeSubscription.MONTHLY);
 
     @BeforeEach
     void setUp() {
@@ -40,17 +38,12 @@ class SubscriptionServicesImplTest {
     }
 
     @Test
-    void addMonthlySubscription() {
-        // Mock repository save behavior
-        when(subscriptionRepository.save(any(Subscription.class))).thenReturn(monthlySubscription);
-
-        // Act
-        Subscription savedSubscription = subscriptionService.addSubscription(monthlySubscription);
-
-        // Assertions
-        assertNotNull(savedSubscription);
-
-        // Verify repository interaction
-        verify(subscriptionRepository, times(1)).save(any(Subscription.class));
+    void addSubscription() {
+        when(iSubscriptionServices.addSubscription(any(Subscription.class))).thenReturn(subscription);
+        Subscription subscription1 = iSubscriptionServices.addSubscription(subscription);
+        assertNotNull(subscription1);
+        verify(iSubscriptionServices, times(1)).addSubscription(subscription);
     }
+
+
 }

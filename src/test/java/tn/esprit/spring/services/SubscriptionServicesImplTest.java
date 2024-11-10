@@ -21,7 +21,6 @@ class SubscriptionServicesImplTest {
     // Static variables for subscription durations
     private static final int MONTHLY_DURATION = 1;
     private static final int SEMESTRIAL_DURATION = 6;
-  //  private static final int ANNUAL_DURATION = 12;
 
     @Mock
     private ISubscriptionRepository subscriptionRepository;
@@ -79,27 +78,4 @@ class SubscriptionServicesImplTest {
         verify(subscriptionRepository, times(1)).save(subscription);
     }
 
-    @Test
-    void updateSubscription() {
-    }
-
-    @Test
-    void retrieveSubscriptionById() {
-    }
-
-    @Test
-    void getSubscriptionByType() {
-    }
-
-    @Test
-    void retrieveSubscriptionsByDates() {
-    }
-
-    @Test
-    void retrieveSubscriptions() {
-    }
-
-    @Test
-    void showMonthlyRecurringRevenue() {
-    }
 }

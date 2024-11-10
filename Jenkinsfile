@@ -1,22 +1,20 @@
 pipeline {
     agent any
     environment {
-        dockerComposeFile = 'docker-compose.yml' // Path to your Docker Compose file
+        dockerCompose = 'docker-compose'
     }
     stages {
         stage('Build') {
             steps {
                 script {
-                    // Start the services using Docker Compose
-                    dockerCompose up -d
+                    sh "${dockerCompose} up -d"
                 }
             }
         }
         stage('Test') {
             steps {
                 script {
-                    // Run tests using Docker Compose
-                    dockerCompose run app mvn test
+                    sh "${dockerCompose} run app mvn test"
                 }
             }
         }
@@ -24,8 +22,8 @@ pipeline {
     post {
         always {
             script {
-                // Stop and remove the services using Docker Compose
-                dockerCompose down
+                // Stop Docker Compose services
+                sh "${dockerCompose} down"
             }
         }
         success {

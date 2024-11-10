@@ -52,6 +52,34 @@ class SubscriptionServicesImplTest {
     }
 
     @Test
+    void addSemestrialSubscription() {
+        Subscription subscription = new Subscription();
+        subscription.setTypeSub(TypeSubscription.SEMESTRIEL);
+        subscription.setStartDate(LocalDate.now());
+
+        when(subscriptionRepository.save(any(Subscription.class))).thenReturn(subscription);
+
+        Subscription savedSubscription = subscriptionService.addSubscription(subscription);
+        assertEquals(subscription.getStartDate().plusMonths(SEMESTRIAL_DURATION), savedSubscription.getEndDate());
+
+        verify(subscriptionRepository, times(1)).save(subscription);
+    }
+
+    @Test
+    void addAnnualSubscription() {
+        Subscription subscription = new Subscription();
+        subscription.setTypeSub(TypeSubscription.ANNUAL);
+        subscription.setStartDate(LocalDate.now());
+
+        when(subscriptionRepository.save(any(Subscription.class))).thenReturn(subscription);
+
+        Subscription savedSubscription = subscriptionService.addSubscription(subscription);
+        assertEquals(subscription.getStartDate().plusYears(1), savedSubscription.getEndDate());
+
+        verify(subscriptionRepository, times(1)).save(subscription);
+    }
+
+    @Test
     void updateSubscription() {
     }
 

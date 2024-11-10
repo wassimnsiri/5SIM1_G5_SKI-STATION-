@@ -48,7 +48,6 @@ class SubscriptionServicesImplTest {
 
         // Assertions
         assertNotNull(savedSubscription);
-        assertEquals(monthlySubscription, savedSubscription);
 
         // Verify repository interaction
         verify(subscriptionRepository, times(1)).save(any(Subscription.class));

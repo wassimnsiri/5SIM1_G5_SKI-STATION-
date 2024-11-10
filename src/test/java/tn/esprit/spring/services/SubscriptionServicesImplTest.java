@@ -28,7 +28,7 @@ class SubscriptionServicesImplTest {
     private SubscriptionServicesImpl subscriptionService;
 
     //Static monthly subscription for testing
-    private Subscription monthlySubscription = new Subscription(1L, LocalDate.now(), LocalDate.now().plusMonths(MONTHLY_DURATION), 100.0f, TypeSubscription.MONTHLY);
+     final Subscription monthlySubscription = new Subscription(1L, LocalDate.now(), LocalDate.now().plusMonths(MONTHLY_DURATION), 100.0f, TypeSubscription.MONTHLY);
 
 
 

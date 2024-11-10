@@ -2,30 +2,21 @@ pipeline {
     agent any
 
     stages {
-
         stage('Build') {
-            steps {
-                sh 'mvn clean install'
+          steps {
+            script {
+              dockerCompose.up('--build')
             }
+          }
         }
-
         stage('Test') {
-            steps {
-                script {
-                    // Start Docker Compose in detached mode
-                    dockerCompose.up '-d'
-                    sh 'docker ps'
-                }
-                sh 'mvn test'
+          steps {
+            script {
+              dockerCompose.run('app', 'mvn test')
             }
+          }
         }
-
-        stage('Package') {
-            steps {
-                sh 'mvn package'
-            }
-        }
-    }
+      }
 
     post {
         always {

@@ -1,36 +1,31 @@
 pipeline {
     agent any
-    environment {
-        dockerCompose = 'docker-compose'
-    }
     stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/your/repo.git'
+            }
+        }
         stage('Build') {
             steps {
-                script {
-                    sh "${dockerCompose} up -d"
-                }
+                sh 'mvn clean install'
             }
         }
-        stage('Test') {
+        stage('SonarQube Analysis') {
             steps {
-                script {
-                    sh "${dockerCompose} run app mvn test"
-                }
+                sh 'mvn sonar:sonar'
             }
         }
-    }
-    post {
-        always {
-            script {
-                // Stop Docker Compose services
-                sh "${dockerCompose} down"
+        stage('Deploy to Nexus') {
+            steps {
+                sh 'mvn deploy'
             }
         }
-        success {
-            echo 'Build and Deploy succeeded!'
-        }
-        failure {
-            echo 'Build or Deploy failed!'
+        stage('Docker Build and Push') {
+            steps {
+                sh 'docker build -t yourdockerhubname/nomprenom_groupe_nomProjet .'
+                sh 'docker push yourdockerhubname/nomprenom_groupe_nomProjet'
+            }
         }
     }
 }

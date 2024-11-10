@@ -31,7 +31,6 @@ class SubscriptionServicesImplTest {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
         subscription = new Subscription();
         subscription.setNumSub(1L);
         subscription.setStartDate(LocalDate.now());

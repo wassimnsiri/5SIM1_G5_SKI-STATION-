@@ -25,8 +25,6 @@ class SubscriptionServicesImplTest {
     @Mock
     private ISubscriptionRepository subscriptionRepository;
 
-    @Mock
-    private ISkierRepository skierRepository;
 
     @InjectMocks
     private SubscriptionServicesImpl subscriptionService;

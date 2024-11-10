@@ -21,7 +21,7 @@ class SubscriptionServicesImplTest {
     // Static variables for subscription durations
     private static final int MONTHLY_DURATION = 1;
     private static final int SEMESTRIAL_DURATION = 6;
-    private static final int ANNUAL_DURATION = 12;
+  //  private static final int ANNUAL_DURATION = 12;
 
     @Mock
     private ISubscriptionRepository subscriptionRepository;

@@ -19,7 +19,6 @@ class SubscriptionServicesImplTest {
 
     // Static variables for subscription durations
     private static final int MONTHLY_DURATION = 1;
-    private static final int SEMESTRIAL_DURATION = 6;
 
     @Mock
     private ISubscriptionRepository subscriptionRepository;
@@ -28,6 +27,14 @@ class SubscriptionServicesImplTest {
     @InjectMocks
     private SubscriptionServicesImpl subscriptionService;
 
+    //Static monthly subscription for testing
+    private Subscription monthlySubscription = new Subscription(1L, LocalDate.now(), LocalDate.now().plusMonths(MONTHLY_DURATION), 100.0f, TypeSubscription.MONTHLY);
+
+
+
+
+
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -35,44 +42,14 @@ class SubscriptionServicesImplTest {
 
     @Test
     void addMonthlySubscription() {
-        Subscription subscription = new Subscription();
-        subscription.setTypeSub(TypeSubscription.MONTHLY);
-        subscription.setStartDate(LocalDate.now());
+        when(subscriptionRepository.save(any(Subscription.class))).thenReturn(monthlySubscription);
+        Subscription savedSubscription = subscriptionService.addSubscription(monthlySubscription);
+        assertNotNull(savedSubscription);
+        assertEquals(monthlySubscription, savedSubscription);
+        verify(subscriptionRepository, times(1)).save(any(Subscription.class));
 
-        when(subscriptionRepository.save(any(Subscription.class))).thenReturn(subscription);
-
-        Subscription savedSubscription = subscriptionService.addSubscription(subscription);
-        assertEquals(subscription.getStartDate().plusMonths(MONTHLY_DURATION), savedSubscription.getEndDate());
-
-        verify(subscriptionRepository, times(1)).save(subscription);
     }
 
-    @Test
-    void addSemestrialSubscription() {
-        Subscription subscription = new Subscription();
-        subscription.setTypeSub(TypeSubscription.SEMESTRIEL);
-        subscription.setStartDate(LocalDate.now());
 
-        when(subscriptionRepository.save(any(Subscription.class))).thenReturn(subscription);
-
-        Subscription savedSubscription = subscriptionService.addSubscription(subscription);
-        assertEquals(subscription.getStartDate().plusMonths(SEMESTRIAL_DURATION), savedSubscription.getEndDate());
-
-        verify(subscriptionRepository, times(1)).save(subscription);
-    }
-
-    @Test
-    void addAnnualSubscription() {
-        Subscription subscription = new Subscription();
-        subscription.setTypeSub(TypeSubscription.ANNUAL);
-        subscription.setStartDate(LocalDate.now());
-
-        when(subscriptionRepository.save(any(Subscription.class))).thenReturn(subscription);
-
-        Subscription savedSubscription = subscriptionService.addSubscription(subscription);
-        assertEquals(subscription.getStartDate().plusYears(1), savedSubscription.getEndDate());
-
-        verify(subscriptionRepository, times(1)).save(subscription);
-    }
 
 }

@@ -22,6 +22,7 @@ public class PisteRestController {
     public Piste addPiste(@RequestBody Piste piste){
         return  pisteServices.addPiste(piste);
     }
+
     @Operation(description = "Retrieve all Pistes")
     @GetMapping("/all")
     public List<Piste> getAllPistes(){
@@ -39,6 +40,16 @@ public class PisteRestController {
     public void deleteById(@PathVariable("id-piste") Long numPiste){
         pisteServices.removePiste(numPiste);
     }
-    
 
+    @Operation(description = "Retrieve Pistes by Color")
+    @GetMapping("/filter")
+    public List<Piste> getPistesByColor(@RequestParam String color) {
+        return pisteServices.getPistesByColor(color);
+    }
+
+    @Operation(description = "Retrieve Pistes longer than a certain length")
+    @GetMapping("/longer-than")
+    public List<Piste> getPistesLongerThan(@RequestParam int length) {
+        return pisteServices.retrievePistesLongerThan(length);
+    }
 }

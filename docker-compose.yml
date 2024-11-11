@@ -3,7 +3,7 @@ version: '3'
 services:
   mysqldb:
     image: mysql:5.7
-    container_name: mysql
+    container_name: mysql1
     restart: unless-stopped
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes

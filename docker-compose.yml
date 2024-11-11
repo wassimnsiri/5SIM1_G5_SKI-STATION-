@@ -6,8 +6,8 @@ services:
     container_name: mysql
     restart: unless-stopped
     environment:
-      - MYSQL_ROOT_PASSWORD=
-      - MYSQL_DATABASE=stationSki
+        MYSQL_ROOT_PASSWORD: root
+
     ports:
       - "3306:3306"
     networks:

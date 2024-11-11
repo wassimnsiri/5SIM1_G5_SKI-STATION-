@@ -1,18 +1,20 @@
 package tn.esprit.spring.services;
 
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
 import tn.esprit.spring.entities.Piste;
-import tn.esprit.spring.entities.Color;
 import tn.esprit.spring.repositories.IPisteRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import tn.esprit.spring.entities.Color;  // Assurez-vous d'avoir cette importation
 
-@AllArgsConstructor
+
 @Service
 public class PisteServicesImpl implements IPisteServices {
 
+    @Autowired
     private IPisteRepository pisteRepository;
 
     @Override
@@ -35,28 +37,25 @@ public class PisteServicesImpl implements IPisteServices {
         return pisteRepository.findById(numPiste).orElse(null);
     }
 
-    public int calculateMaxSlopeByColor(Color color) {
-        List<Piste> pistes = pisteRepository.findAll();
-
-        List<Piste> filteredPistes = pistes.stream()
-                .filter(piste -> piste.getColor().equals(color))
+    @Override
+    public List<Piste> getPistesByColor(String color) {
+        return pisteRepository.findAll().stream()
+                .filter(piste -> piste.getColor().name().equalsIgnoreCase(color))
                 .collect(Collectors.toList());
+    }
 
-        if (filteredPistes.isEmpty()) {
-            return 0;
-        }
-
-        return filteredPistes.stream()
+    @Override
+    public int calculateMaxSlopeByColor(Color color) {
+        return pisteRepository.findAll().stream()
+                .filter(piste -> piste.getColor() == color)
                 .mapToInt(Piste::getSlope)
                 .max()
                 .orElse(0);
     }
 
-    // Nouvelle méthode pour récupérer toutes les pistes dont la longueur est supérieure à une valeur donnée
+    @Override
     public List<Piste> retrievePistesLongerThan(int length) {
-        List<Piste> pistes = pisteRepository.findAll();
-
-        return pistes.stream()
+        return pisteRepository.findAll().stream()
                 .filter(piste -> piste.getLength() > length)
                 .collect(Collectors.toList());
     }

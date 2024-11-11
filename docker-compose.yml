@@ -16,7 +16,6 @@ services:
 
   springboot-app:
     image: saifmessaoudi/backend-devops:latest
-    container_name: backend-devops
     restart: on-failure
     ports:
       - "8089:8089"

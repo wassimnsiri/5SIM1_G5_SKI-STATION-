@@ -12,6 +12,11 @@ services:
       - myNetwork
     volumes:
       - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   springboot-app:
     image: saifmessaoudi/backend-devops:latest

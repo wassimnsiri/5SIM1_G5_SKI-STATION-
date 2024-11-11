@@ -64,7 +64,7 @@ class JunitTest {
         when(iInstructorServices.retrieveAllInstructors()).thenReturn(instructors);
 
         List<Instructor> retrievedInstructors = iInstructorServices.retrieveAllInstructors();
-        assertTrue(retrievedInstructors.size() > 0);
+        assertFalse(retrievedInstructors.isEmpty());
         log.info("Instructors count: {}", retrievedInstructors.size());
 
     }

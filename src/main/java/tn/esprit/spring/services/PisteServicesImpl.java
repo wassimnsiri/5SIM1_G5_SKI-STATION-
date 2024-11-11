@@ -8,7 +8,7 @@ import tn.esprit.spring.repositories.IPisteRepository;
 import java.util.List;
 @AllArgsConstructor
 @Service
-public class PisteServicesImpl implements  IPisteServices{
+public class PisteServicesImpl implements  IPisteServices {
 
     private IPisteRepository pisteRepository;
 
@@ -31,4 +31,6 @@ public class PisteServicesImpl implements  IPisteServices{
     public Piste retrievePiste(Long numPiste) {
         return pisteRepository.findById(numPiste).orElse(null);
     }
+
+
 }

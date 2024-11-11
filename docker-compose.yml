@@ -3,11 +3,11 @@ version: '3'
 services:
   mysqldb:
     image: mysql:5.7
-    container_name: mysqldb  # Keep the name consistent (no spaces)
+    container_name: mysql
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: stationSki
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=stationSki
     ports:
       - "3306:3306"
     networks:
@@ -17,7 +17,12 @@ services:
 
   springboot-app:
     image: saifmessaoudi/backend-devops:latest
-    container_name: springboot-app  # Clearer container naming
+    container_name: backend-devops
+    environment:
+        - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/stationSki
+        - SPRING_DATASOURCE_USERNAME=root
+        - SPRING_DATASOURCE_PASSWORD=root
+        - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     restart: on-failure
     ports:
       - "8089:8089"
@@ -25,13 +30,9 @@ services:
       - mysqldb
     networks:
       - myNetwork
-    environment:  # Optional environment variables for Spring Boot
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/stationSki
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root
 
 networks:
-  myNetwork:  # Define the network without additional configuration if defaults are acceptable
+  myNetwork:
 
 volumes:
-  mysql-data:  # No configuration is required here unless specific options are needed
+  mysql-data:

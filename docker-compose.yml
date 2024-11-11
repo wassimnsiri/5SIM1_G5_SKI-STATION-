@@ -18,11 +18,6 @@ services:
   springboot-app:
     image: saifmessaoudi/backend-devops:latest
     container_name: backend-devops
-    environment:
-        - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/stationSki
-        - SPRING_DATASOURCE_USERNAME=root
-        - SPRING_DATASOURCE_PASSWORD=root
-        - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     restart: on-failure
     ports:
       - "8089:8089"

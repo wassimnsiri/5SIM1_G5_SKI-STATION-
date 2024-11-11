@@ -1,4 +1,4 @@
-version: '3.8'  # Update to the latest version of Docker Compose schema if possible
+version: '3'
 
 services:
   mysqldb:

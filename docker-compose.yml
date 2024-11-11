@@ -19,7 +19,7 @@ services:
       retries: 5
 
   springboot-app:
-    image: saifmessaoudi/backend-devops:latest
+    image: raed13/backend:latest
     restart: on-failure
     ports:
       - "8089:8089"

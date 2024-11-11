@@ -6,10 +6,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import tn.esprit.spring.entities.Subscription;
 import tn.esprit.spring.entities.TypeSubscription;
-import tn.esprit.spring.repositories.ISkierRepository;
 import tn.esprit.spring.repositories.ISubscriptionRepository;
 
 import java.time.LocalDate;
@@ -20,33 +18,51 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class SubscriptionServicesImplMockTest {
 
-    @MockBean
+  // test get all
+    @Mock
     private ISubscriptionRepository subscriptionRepository;
 
     @InjectMocks
     private SubscriptionServicesImpl subscriptionServices;
 
-    private Subscription subscription;
-
     @BeforeEach
     public void setUp() {
-        subscription = new Subscription();
+        Subscription subscription = new Subscription();
         subscription.setNumSub(1L);
         subscription.setStartDate(LocalDate.now());
         subscription.setTypeSub(TypeSubscription.ANNUAL);
         subscription.setEndDate(LocalDate.now().plusYears(1));
+        when(subscriptionRepository.save(subscription)).thenReturn(subscription);
+        when(subscriptionRepository.findById(1L)).thenReturn(java.util.Optional.of(subscription));
     }
 
     @Test
     public void testAddSubscription() {
-        // Mock the behavior of the save method in ISubscriptionRepository
-        when(subscriptionRepository.save(subscription)).thenReturn(subscription);
-
-        // Call the method we're testing
-        Subscription result = subscriptionServices.addSubscription(subscription);
-
-        // Assert that the returned subscription is the same as the mocked one
-        assertEquals(subscription, result);
+        Subscription subscription = new Subscription();
+        subscription.setNumSub(1L);
+        subscription.setStartDate(LocalDate.now());
+        subscription.setTypeSub(TypeSubscription.ANNUAL);
+        subscription.setEndDate(LocalDate.now().plusYears(1));
+        Subscription savedSubscription = subscriptionServices.addSubscription(subscription);
+        assertEquals(subscription, savedSubscription);
     }
+
+
+    //test get all
+    @Test
+    public void testGetSubscriptionByType() {
+        subscriptionServices.getSubscriptionByType(TypeSubscription.ANNUAL);
+        verify(subscriptionRepository, times(1)).findByTypeSubOrderByStartDateAsc(TypeSubscription.ANNUAL);
+    }
+
+    @Test
+    public void testRetrieveSubscriptionsByDates() {
+        subscriptionServices.retrieveSubscriptionsByDates(LocalDate.now(), LocalDate.now().plusYears(1));
+        verify(subscriptionRepository, times(1)).getSubscriptionsByStartDateBetween(LocalDate.now(), LocalDate.now().plusYears(1));
+    }
+
+
+
+
 }
 

@@ -1,14 +1,11 @@
 version: '3'
-
 services:
   mysqldb:
     image: mysql:5.7
     restart: unless-stopped
     environment:
-      - ALLOW_EMPTY_PASSWORD=yes
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=skidb
-
+      - MYSQL_DATABASE=stationSki
     ports:
       - "3306:3306"
     networks:
@@ -22,7 +19,8 @@ services:
     ports:
       - "8089:8089"
     depends_on:
-      - mysqldb
+      mysqldb:
+        condition: service_healthy
     networks:
       - myNetwork
 

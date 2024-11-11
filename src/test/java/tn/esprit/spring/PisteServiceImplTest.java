@@ -73,7 +73,6 @@ class PisteServiceImplTest {
         verify(pisteRepository, times(1)).deleteById(pisteId);
     }
 
-
     @Test
     void retrievePisteTest() {
         Long pisteId = 1L;
@@ -85,24 +84,38 @@ class PisteServiceImplTest {
         verify(pisteRepository).findById(pisteId);
     }
 
-
-
-
-
     @Test
-    void calculateAverageSlopeTest() {
+    void calculateMaxSlopeByColorTest() {
         List<Piste> pistes = List.of(
                 new Piste(1L, "Green Valley", Color.GREEN, 1000, 15, null),
                 new Piste(2L, "Blue Ridge", Color.BLUE, 1500, 20, null),
-                new Piste(3L, "Black Diamond", Color.BLACK, 2000, 30, null)
+                new Piste(3L, "Black Diamond", Color.BLACK, 2000, 30, null),
+                new Piste(4L, "Green Peak", Color.GREEN, 1200, 25, null)
         );
 
         when(pisteRepository.findAll()).thenReturn(pistes);
 
-        double averageSlope = pisteService.calculateAverageSlope();
+        int maxSlopeGreen = pisteService.calculateMaxSlopeByColor(Color.GREEN);
 
-        assertThat(averageSlope).isEqualTo((15 + 20 + 30) / 3.0);
+        assertThat(maxSlopeGreen).isEqualTo(25);
         verify(pisteRepository).findAll();
     }
 
+    @Test
+    void retrievePistesLongerThanTest() {
+        List<Piste> pistes = List.of(
+                new Piste(1L, "Green Valley", Color.GREEN, 1000, 15, null),
+                new Piste(2L, "Blue Ridge", Color.BLUE, 1500, 20, null),
+                new Piste(3L, "Black Diamond", Color.BLACK, 2000, 30, null),
+                new Piste(4L, "Green Peak", Color.GREEN, 1200, 25, null)
+        );
+
+        when(pisteRepository.findAll()).thenReturn(pistes);
+
+        List<Piste> longPistes = pisteService.retrievePistesLongerThan(1200);
+
+        assertThat(longPistes).hasSize(2); // Should return the 2 pistes with length > 1200
+        assertThat(longPistes).extracting(Piste::getNamePiste).containsExactly("Blue Ridge", "Black Diamond");
+        verify(pisteRepository).findAll();
+    }
 }

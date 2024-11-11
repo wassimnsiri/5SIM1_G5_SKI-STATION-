@@ -1,27 +1,31 @@
 version: '3'
-
 services:
   mysqldb:
     image: mysql:5.7
-    container_name: mysql1
     restart: unless-stopped
     environment:
-      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=stationSki
     ports:
       - "3306:3306"
     networks:
       - myNetwork
     volumes:
       - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   springboot-app:
-    image: raed13/backend:latest
+    image: saifmessaoudi/backend-devops:latest
     restart: on-failure
     ports:
       - "8089:8089"
     depends_on:
-      - mysqldb
+      mysqldb:
+        condition: service_healthy
     networks:
       - myNetwork
 

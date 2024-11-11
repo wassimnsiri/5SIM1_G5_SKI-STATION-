@@ -16,7 +16,7 @@ services:
       - mysql-data:/var/lib/mysql
 
   springboot-app:
-    image: raed13/backend
+    image: raed13/backend:latest
     container_name: backend-devops
     restart: on-failure
     ports:
